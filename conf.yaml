@@ -1,0 +1,42 @@
+name: widya audio augmentation configuration
+
+apply_impulse_response:
+  #Convolve the audio with a random impulse response
+  active: True
+  ir_conf: ir_config/echo.txt
+  ir_audio_dict: ir_audio
+  probability: 1
+
+normalize:
+  #Apply a constant amount of gain, so that highest signal level present in the 
+  #sound becomes 0 dBFS, i.e. the loudest level allowed if all samples must be 
+  #between -1 and 1. Also known as peak normalization.
+  active: False
+  probability: 1
+
+
+frequency_mask:
+  #Mask some frequency band on the spectrogram. 
+  #Inspired by https://arxiv.org/pdf/1904.08779.pdf
+  active: False
+  min_frequency_band: 0.5
+  max_frequency_band: 0.6
+  probability: 1
+
+loudness_normalization:
+  #Apply a constant amount of gain to match a specific loudness. 
+  #This is an implementation of ITU-R BS.1770-4.
+  #Warning: This transform can return samples outside the [-1, 1] range, 
+  #which may lead to clipping or wrap distortion, depending on what you do 
+  #with the audio in a later stage
+  active: False
+  min_lufs_in_db : -31
+  max_lufs_in_db : -13
+  probability : 0.5
+
+pitch_shift:
+  #Pitch shift the sound up or down without changing the tempo
+  active: False
+  min_semitones: -4
+  max_semitones: -4
+  probability : 1

@@ -1,0 +1,2 @@
+python widya_audio_augmentations.py --audio_dir samples --output_dir out_test --config conf.yaml
+python widya_generate_ir_samples.py --audio_dir samples --output_dir ir_output_samples --ir_path ir_audio --target_sr 16000
